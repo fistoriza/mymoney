@@ -1,1 +1,7 @@
 <h1>New Expense Entry</h1>
+
+<%= simple_form_for @expense do |f| %>
+  <%= f.input :entry %>
+  <%= f.input :amount %>
+  <%= f.submit "Submit" %>
+<% end %>

@@ -14,4 +14,14 @@ RSpec.describe ExpensesController, type: :controller do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe "expenses#create action" do
+    it "should successfully create a new expense in the database" do
+      post :create, params: { expense: { entry: 'Food!' } }
+      expect(response).to redirect_to root_path
+
+      expense = Expense.last
+      expect(expense.entry).to eq('Food!')
+    end
+  end
 end
