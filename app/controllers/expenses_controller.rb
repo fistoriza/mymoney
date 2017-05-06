@@ -1,4 +1,6 @@
 class ExpensesController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create]
+  
   def index
   end
 
@@ -7,8 +9,12 @@ class ExpensesController < ApplicationController
   end
 
   def create
-    @expense = Expense.create(expense_params)
-    redirect_to root_path
+    @expense = current_user.expenses.create(expense_params)
+    if @expense.valid?
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   private
